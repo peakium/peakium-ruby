@@ -3,7 +3,7 @@
 == About
 
 This is an experimental release heavily inspired by (and stolen from) the {Stripe 
-Ruby bindings}[https://gemnasium.com/peakium/peakium-ruby].
+Ruby bindings}[https://github.com/stripe/stripe-ruby].
 
 == Installation
 
