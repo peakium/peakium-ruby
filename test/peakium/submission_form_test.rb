@@ -5,7 +5,7 @@ module Peakium
   class SubmissionFormTest < Test::Unit::TestCase
     should "create should return a new submission form" do
       @mock.expects(:post).once.returns(test_response(test_submission_form))
-      sf = Peakium::SubmissionForm.build('create_subscription')
+      sf = Peakium::SubmissionForm.build('create_subscription', {:customer => "test_customer"})
       assert_equal "<html></html>", sf.html
     end
   end
