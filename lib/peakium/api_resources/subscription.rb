@@ -4,9 +4,13 @@ module Peakium
 
     def id
       unless id = self['token']
-        raise InvalidRequestError.new("No token set for Peakium::Webhook")
+        raise InvalidRequestError.new("Object #{self.class} has not token: #{id.inspect}", id)
       end
       id
+    end
+
+    def self.retrieve(id, api_key=nil)
+      raise InvalidRequestError.new("You need to access individual #{self.class} through a #{Customer.class}", 'customer');
     end
 
     def endpoint_url
