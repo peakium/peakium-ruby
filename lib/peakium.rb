@@ -218,8 +218,6 @@ module Peakium
       raise invalid_request_error error, rcode, rbody, error_obj
     when 401
       raise authentication_error error, rcode, rbody, error_obj
-    when 402
-      raise card_error error, rcode, rbody, error_obj
     else
       raise api_error error, rcode, rbody, error_obj
     end

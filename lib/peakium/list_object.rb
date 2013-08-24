@@ -14,20 +14,7 @@ module Peakium
       self.data.each(&blk)
     end
 
-    def retrieve(id, api_key=nil)
-      api_key ||= @api_key
-      response, api_key = Peakium.request(:get,"#{endpoint_url}/#{CGI.escape(id)}", api_key)
-      Util.convert_to_peakium_object(response, api_key)
-    end
-
-    def create(params={}, api_key=nil)
-      api_key ||= @api_key
-      response, api_key = Peakium.request(:post, endpoint_url, api_key, params)
-      Util.convert_to_peakium_object(response, api_key)
-    end
-
     def all(params={}, api_key=nil)
-      api_key ||= @api_key
       response, api_key = Peakium.request(:get, endpoint_url, api_key, params)
       Util.convert_to_peakium_object(response, api_key)
       self.set_endpoint_url(endpoint_url, params)
