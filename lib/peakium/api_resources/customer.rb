@@ -15,7 +15,7 @@ module Peakium
     private
 
     def subscription_url(token)
-      endpoint_url + '/subscriptions/' + token
+      subscriptions_url + '/' + token
     end
 
     def subscriptions_url

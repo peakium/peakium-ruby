@@ -11,12 +11,12 @@ module Peakium
 
     def endpoint_url
       unless token = self['id']
-        raise InvalidRequestError.new("No token set for subscription", token)
+        raise InvalidRequestError.new("Could not determine which endpoint URL to request: #{self.class} instance has invalid token: #{token.inspect}", 'token')
       end
       unless customer = self['customer']
-        raise InvalidRequestError.new("No customer set for subscription", customer)
+        raise InvalidRequestError.new("Could not determine which endpoint URL to request: #{self.class} instance has invalid #{Customer.class}: #{customer.inspect}", 'customer')
       end
-      url = customer.endpoint_url + "/#{self.class.endpoint_url}/#{CGI.escape(token)}"
+      url = customer.endpoint_url + "/subscriptions/#{CGI.escape(token)}"
     end
   end
 end

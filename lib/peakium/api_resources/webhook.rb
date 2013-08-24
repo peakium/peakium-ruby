@@ -12,10 +12,10 @@ module Peakium
     end
 
     def endpoint_url
-      unless id = self['url']
-        raise InvalidRequestError.new("URL not set for webhook")
+      unless url = self['url']
+        raise InvalidRequestError.new("Could not determine which endpoint URL to request: #{self.class} instance has invalid url: #{url.inspect}", 'url')
       end
-      "#{self.class.endpoint_url}/#{CGI.escape(id)}"
+      "#{self.class.endpoint_url}/#{CGI.escape(url)}"
     end
   end
 end
