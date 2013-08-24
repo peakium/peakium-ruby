@@ -2,9 +2,9 @@ module Peakium
   class Invoice < APIResource
     include Peakium::APIOperations::List
 
-    def overdue(params, api_key = nil)
-      response, api_key = Peakium.request(:get, overdue_url, api_key, params)
-      Util.convert_to_peakium_object(response, api_key)
+    def overdue(params={}, api_key = nil)
+      params = params + { :overdue => true }
+      all(params, api_key);
     end
 
     def pay
