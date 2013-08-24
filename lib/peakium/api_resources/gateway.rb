@@ -4,8 +4,8 @@ module Peakium
     include Peakium::APIOperations::List
     include Peakium::APIOperations::Update
 
-    def set_default(params={})
-      response, api_key = Peakium.request(:post, set_default_url, @api_key, params)
+    def set_default()
+      response, api_key = Peakium.request(:post, set_default_url, @api_key)
       refresh_from(response, api_key)
       self
     end
