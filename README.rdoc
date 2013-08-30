@@ -24,6 +24,10 @@ Cancel a subscription:
 
   customer.cancel_subscription("test_subscription")
 
+== Errors
+
+The library will raise exceptions when errors are encountered, e.g. if a resource doesn't exist.
+
 == Requirements
 
 * Ruby 1.8.7 or above. (Ruby 1.8.6 may work if you load
