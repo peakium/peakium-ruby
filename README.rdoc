@@ -12,6 +12,10 @@ Ruby bindings}[https://github.com/stripe/stripe-ruby].
 
 == Example usage
 
+Set API key:
+
+  Peakium.api_key = "you_secret_api_key"
+
 Retrieve a customer:
 
   customer = Peakium::Customer.retrieve("test_customer")
