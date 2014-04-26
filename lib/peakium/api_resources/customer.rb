@@ -15,11 +15,11 @@ module Peakium
     private
 
     def subscription_url(token)
-      subscriptions_url + '/' + token
+      "#{subscriptions_url}/#{CGI.escape(token)}"
     end
 
     def subscriptions_url
-      endpoint_url + '/subscriptions'
+      "#{endpoint_url}/subscriptions"
     end
   end
 end

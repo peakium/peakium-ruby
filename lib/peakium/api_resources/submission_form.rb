@@ -6,7 +6,7 @@ module Peakium
     end
 
     def self.build_url(type)
-      self.endpoint_url + '/' + type
+      "#{self.endpoint_url}/#{CGI.escape(type)}"
     end
   end
 end
