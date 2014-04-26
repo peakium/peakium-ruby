@@ -36,12 +36,12 @@ module Peakium
     end
 
     def to_s(*args)
-      Peakium::JSON.dump(@values, :pretty => true)
+      JSON.pretty_generate(@values, :pretty => true)
     end
 
     def inspect()
       id_string = (self.respond_to?(:id) && !self.id.nil?) ? " id=#{self.id}" : ""
-      "#<#{self.class}:0x#{self.object_id.to_s(16)}#{id_string}> JSON: " + Peakium::JSON.dump(@values, :pretty => true)
+      "#<#{self.class}:0x#{self.object_id.to_s(16)}#{id_string}> JSON: " + JSON.pretty_generate(@values, :pretty => true)
     end
 
     def refresh_from(values, api_key, partial=false)
@@ -86,7 +86,7 @@ module Peakium
     end
 
     def to_json(*a)
-      Peakium::JSON.dump(@values)
+      JSON.generate(@values)
     end
 
     def as_json(*a)

@@ -4,7 +4,7 @@ require 'cgi'
 require 'set'
 require 'openssl'
 require 'rest_client'
-require 'multi_json'
+require 'json'
 
 # Version
 require 'peakium/version'
@@ -17,7 +17,6 @@ require 'peakium/api_operations/list'
 
 # Resources
 require 'peakium/util'
-require 'peakium/json'
 require 'peakium/peakium_object'
 require 'peakium/api_resource'
 require 'peakium/list_object'
@@ -175,7 +174,7 @@ module Peakium
     headers[:peakium_version] = api_version if api_version
 
     begin
-      headers.update(:x_peakium_client_user_agent => Peakium::JSON.dump(user_agent))
+      headers.update(:x_peakium_client_user_agent => JSON.generate(user_agent))
     rescue => e
       headers.update(:x_peakium_client_raw_user_agent => user_agent.inspect,
                      :error => "#{e} (#{e.class})")
@@ -190,8 +189,8 @@ module Peakium
     begin
       # Would use :symbolize_names => true, but apparently there is
       # some library out there that makes symbolize_names not work.
-      response = Peakium::JSON.load(response.body)
-    rescue MultiJson::DecodeError
+      response = JSON.parse(response.body)
+    rescue JSON::ParserError
       raise general_api_error(response.code, response.body)
     end
 
@@ -205,11 +204,11 @@ module Peakium
 
   def self.handle_api_error(rcode, rbody)
     begin
-      error_obj = Peakium::JSON.load(rbody)
+      error_obj = JSON.parse(rbody)
       error_obj = Util.symbolize_names(error_obj)
       error = error_obj[:error] or raise PeakiumError.new # escape from parsing
 
-    rescue MultiJson::DecodeError, PeakiumError
+    rescue JSON::ParserError, PeakiumError
       raise general_api_error(rcode, rbody)
     end
 
