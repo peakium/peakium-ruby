@@ -291,7 +291,6 @@ module Peakium
             assert e.kind_of? Peakium::InvalidRequestError
             assert_equal "id", e.param
             assert_equal "Missing id", e.message
-            return
           end
 
           assert_equal true, rescued
