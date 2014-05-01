@@ -25,5 +25,16 @@ module Peakium
       symbolized = Peakium::Util.symbolize_names(start)
       assert_equal(finish, symbolized)
     end
+
+    should "uri_encode should handle arrays correctly" do
+      start = {
+        'foo' => 'bar',
+        'array' => [{ 'foo' => 'bar' }, {'foo' => 'bar 2'}],
+      }
+      finish = 'foo=bar&array[0][foo]=bar&array[1][foo]=bar%202'
+
+      uri = Peakium.uri_encode(start)
+      assert_equal(finish, uri)
+    end
   end
 end

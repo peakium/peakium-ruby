@@ -92,13 +92,13 @@ module Peakium
 
     def self.flatten_params_array(value, calculated_key)
       result = []
-      value.each do |elem|
+      value.each_with_index do |elem,index|
         if elem.is_a?(Hash)
-          result += flatten_params(elem, calculated_key)
+          result += flatten_params(elem, calculated_key + "[#{index}]")
         elsif elem.is_a?(Array)
-          result += flatten_params_array(elem, calculated_key)
+          result += flatten_params_array(elem, calculated_key + "[#{index}]")
         else
-          result << ["#{calculated_key}[]", elem]
+          result << ["#{calculated_key}[#{index}]", elem]
         end
       end
       result
