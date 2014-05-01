@@ -276,7 +276,7 @@ end
 def test_submission_form
   {
     :livemode => false,
-    :html => "<html></html>"
+    :html => "<form></form>"
   }
 end
 

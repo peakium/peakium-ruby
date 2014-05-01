@@ -282,32 +282,35 @@ module Peakium
           response = test_response(test_missing_id_error, 404)
           @mock.expects(:get).once.raises(RestClient::ExceptionWithResponse.new(response, 404))
 
+          rescued = false
           begin
             Peakium::Gateway.new("gw_test_gateway").refresh
             assert false #shouldn't get here either
           rescue Peakium::InvalidRequestError => e # we don't use assert_raises because we want to examine e
+            rescued = true
             assert e.kind_of? Peakium::InvalidRequestError
             assert_equal "id", e.param
             assert_equal "Missing id", e.message
             return
           end
 
-          assert false #shouldn't get here
+          assert_equal true, rescued
         end
 
         should "5XXs should raise an APIError" do
           response = test_response(test_api_error, 500)
           @mock.expects(:get).once.raises(RestClient::ExceptionWithResponse.new(response, 500))
 
+          rescued = false
           begin
             Peakium::Gateway.new("gw_test_gateway").refresh
             assert false #shouldn't get here either
           rescue Peakium::APIError => e # we don't use assert_raises because we want to examine e
+            rescued = true
             assert e.kind_of? Peakium::APIError
-            return
           end
 
-          assert false #shouldn't get here
+          assert_equal true, rescued
         end
       end
     end
