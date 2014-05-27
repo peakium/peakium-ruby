@@ -1,6 +1,8 @@
 module Peakium
   class Subscription < APIResource
     include Peakium::APIOperations::List
+    include Peakium::APIOperations::Update
+    include Peakium::APIOperations::Delete
 
     def id
       unless id = self['token']
@@ -14,7 +16,7 @@ module Peakium
     end
 
     def endpoint_url
-      unless token = self['id']
+      unless token = self['token']
         raise InvalidRequestError.new("Could not determine which endpoint URL to request: #{self.class} instance has invalid token: #{token.inspect}", 'token')
       end
       unless customer = self['customer']

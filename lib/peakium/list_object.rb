@@ -26,6 +26,6 @@ module Peakium
       url += "#{(endpoint_url.include? '?') ? '&' : '?'}#{Peakium.uri_encode(params)}" if params && params.any?
       self.endpoint_url = url
       self
-	end
+    end
   end
 end

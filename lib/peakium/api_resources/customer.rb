@@ -1,6 +1,7 @@
 module Peakium
   class Customer < APIResource
     include Peakium::APIOperations::List
+    include Peakium::APIOperations::Update
 
     def subscriptions
       Subscription.all({ :customer => id }, @api_key)
