@@ -15,5 +15,14 @@ module Peakium
       g = Peakium::Customer.create
       assert_equal "cu_test_customer", g.id
     end
+
+    should "subscription fetched with nested resource" do
+      @mock.expects(:get).once.returns(test_response(test_customer))
+      c = Peakium::Customer.retrieve("cu_test_customer")
+
+      @mock.expects(:get).once.returns(test_response(test_subscription))
+      s = c.subscription("test_subscription")
+      assert_equal('/v1/customers/cu_test_customer/subscriptions/test_subscription', s.endpoint_url)
+    end
   end
 end

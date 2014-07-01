@@ -4,6 +4,11 @@ module Peakium
     include Peakium::APIOperations::Update
     include Peakium::APIOperations::Delete
 
+    def initialize(id=nil, api_key=nil)
+      super(id, api_key)
+      @values[:token] = id if id
+    end
+
     def id
       unless id = self['token']
         raise InvalidRequestError.new("Object #{self.class} has not token: #{id.inspect}", id)
@@ -16,13 +21,10 @@ module Peakium
     end
 
     def endpoint_url
-      unless token = self['token']
-        raise InvalidRequestError.new("Could not determine which endpoint URL to request: #{self.class} instance has invalid token: #{token.inspect}", 'token')
-      end
       unless customer = self['customer']
         raise InvalidRequestError.new("Could not determine which endpoint URL to request: #{self.class} instance has invalid #{Customer.class}: #{customer.inspect}", 'customer')
       end
-      url = customer.endpoint_url + "/subscriptions/#{CGI.escape(token)}"
+      url = customer.endpoint_url + "/subscriptions/#{CGI.escape(id)}"
     end
   end
 end
