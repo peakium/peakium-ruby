@@ -50,9 +50,9 @@ def test_customer(params={})
   {
     :livemode => false,
     :object => "customer",
-    :id => "test_customer",
+    :id => "cu_test_customer",
     :created => 1375217068,
-    :balances => [],
+    :balances => {},
   }.merge(params)
 end
 

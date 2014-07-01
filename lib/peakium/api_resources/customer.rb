@@ -1,5 +1,6 @@
 module Peakium
   class Customer < APIResource
+    include Peakium::APIOperations::Create
     include Peakium::APIOperations::List
     include Peakium::APIOperations::Update
 
@@ -7,9 +8,10 @@ module Peakium
       Subscription.all({ :customer => id }, @api_key)
     end
 
-    def cancel_subscription(token)
-      response, api_key = Peakium.request(:delete, subscription_url(token), @api_key)
-      refresh_from({ :subscription => response }, api_key, true)
+    def subscription(token)
+      subscription = Subscription.new(token, @api_key)
+      subscription['customer'] = self
+      subscription.refresh
       subscription
     end
 

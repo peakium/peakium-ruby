@@ -10,12 +10,10 @@ module Peakium
       assert c[0].kind_of? Peakium::Customer
     end
 
-    should "be able to cancel a customer's subscription" do
-      @mock.expects(:get).once.returns(test_response(test_customer))
-      c = Peakium::Customer.retrieve("test_customer")
-
-      @mock.expects(:delete).once.with("#{Peakium.api_base}/v1/customers/test_customer/subscriptions/test_subscription", nil, nil).returns(test_response(test_subscription()))
-      s = c.cancel_subscription('test_subscription');
+    should "create should return a new customer" do
+      @mock.expects(:post).once.returns(test_response(test_customer))
+      g = Peakium::Customer.create
+      assert_equal "cu_test_customer", g.id
     end
   end
 end
