@@ -24,6 +24,7 @@ module Peakium
       unless customer = self['customer']
         raise InvalidRequestError.new("Could not determine which endpoint URL to request: #{self.class} instance has invalid #{Customer.class}: #{customer.inspect}", 'customer')
       end
+      customer = Peakium::Customer.retrieve(customer, @api_key) if customer.is_a? String
       url = customer.endpoint_url + "/subscriptions/#{CGI.escape(id)}"
     end
   end
