@@ -1,6 +1,7 @@
 module Peakium
   class Invoice < APIResource
     include Peakium::APIOperations::List
+    include Peakium::APIOperations::Create
 
     def overdue(params={}, api_key = nil)
       params = params + { :overdue => true }

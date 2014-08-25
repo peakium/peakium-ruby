@@ -21,6 +21,7 @@ module Peakium
         'event' => Event,
         'event_webhook' => EventWebhook,
         'gateway' => Gateway,
+        'gateway_module' => GatewayModule,
         'invoice' => Invoice,
         'payment_session' => PaymentSession,
         'subscription' => Subscription,
