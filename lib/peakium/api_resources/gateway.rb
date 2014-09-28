@@ -3,6 +3,7 @@ module Peakium
     include Peakium::APIOperations::Create
     include Peakium::APIOperations::List
     include Peakium::APIOperations::Update
+    include Peakium::APIOperations::Delete
 
     def set_default()
       response, api_key = Peakium.request(:post, set_default_url, @api_key)
